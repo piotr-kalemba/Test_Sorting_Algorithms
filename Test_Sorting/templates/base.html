@@ -1,0 +1,17 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/styles.css'  %}">
+    <title>{% block title %} nadpisz tytuł strony {%  endblock %}</title>
+</head>
+<body class="content">
+     <h1>Aplikacja testująca algorytmy sortowania</h1>
+        {% block content %}
+          nadpisz zawartość strony
+        {% endblock %}
+</body>
+</html>
+

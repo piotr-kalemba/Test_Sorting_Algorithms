@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}Test form {% endblock %}
+{% block content %}
+       <form method="POST" class="form">
+            {% csrf_token %}
+           <ul> {{ form.as_ul }}</ul>
+           <button type="submit" class="button">Wykonaj test</button>
+       </form>
+{% endblock %}
