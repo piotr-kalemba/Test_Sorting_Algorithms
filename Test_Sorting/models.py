@@ -25,7 +25,7 @@ class TestInstance(models.Model):
 
 class AverageTimes(models.Model):
 
-    test =  models.ForeignKey(TestInstance, on_delete=models.CASCADE)
+    test = models.ForeignKey(TestInstance, on_delete=models.CASCADE)
     test_number = models.IntegerField(default=0)
     avg_bubble = models.FloatField(default=0)
     avg_select = models.FloatField(default=0)
