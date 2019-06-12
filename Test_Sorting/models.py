@@ -34,6 +34,11 @@ class AverageTimes(models.Model):
     avg_quick = models.FloatField(default=0)
 
     def update_data(self):
+        '''the method updates the current sorting time values by computing new average sorting time values
+        for individual algorithms from the previous average times and new sorting times taken from 'test' object:
+        we use the formula: if avg is the average time from n samples and new_time is a new sample time then
+        new_avg = (avg * n + new_time)/(n + 1)
+        '''
         self.avg_bubble = (self.avg_bubble * self.test_number + self.test.bubble)/(self.test_number + 1)
         self.avg_select = (self.avg_select * self.test_number + self.test.select)/(self.test_number + 1)
         self.avg_merge = (self.avg_merge * self.test_number + self.test.merge)/(self.test_number + 1)

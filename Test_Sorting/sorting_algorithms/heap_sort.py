@@ -1,6 +1,3 @@
-import math
-import unittest
-import random
 
 def swap(a, i, j):
     a[i], a[j] = a[j], a[i]
@@ -9,7 +6,7 @@ def left_child(a):
     return 2 * a + 1
 
 def parent(a):
-    return math.floor((a - 1) / 2)
+    return (a - 1)//2
 
 def sift_down(a, start, end):
 
@@ -59,28 +56,4 @@ def heap_sort(a):
         maintain_heap(a, end)
         end -= 1
 
-# below we run a unittest to make sure if heap_sort indeed sorts a random list:
-
-random_list = []
-
-for _ in range(100):
-
-    draw = random.randint(0,1000)
-    random_list.append(draw)
-
-random_list_copy = random_list[:]
-
-heap_sort(random_list)
-
-random_list_copy.sort()
-
-class TestHeapSort(unittest.TestCase):
-
-    def test_1(self):
-
-        self.assertEqual(random_list, random_list_copy)
-
-
-if __name__ == '__main__':
-    unittest.main()
 

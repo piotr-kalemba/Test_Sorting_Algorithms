@@ -1,5 +1,3 @@
-import unittest
-import random
 
 def copy_list(a, temp, start, stop):
 
@@ -35,27 +33,3 @@ def merge_sort(a):
     mergesort(a, temp, 0, len(a))
 
 
-# below we run a unittest to make sure if merge_sort indeed sorts a random list:
-
-random_list = []
-
-for _ in range(100):
-
-    draw = random.randint(0,1000)
-    random_list.append(draw)
-
-random_list_copy = random_list[:]
-
-merge_sort(random_list)
-
-random_list_copy.sort()
-
-class TestMergeSort(unittest.TestCase):
-
-    def test_1(self):
-
-        self.assertEqual(random_list, random_list_copy)
-
-
-if __name__ == '__main__':
-    unittest.main()

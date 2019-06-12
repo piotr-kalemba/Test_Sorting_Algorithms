@@ -1,5 +1,3 @@
-import unittest
-import random
 
 def swap(a, i, j):
     a[i], a[j] = a[j], a[i]
@@ -34,27 +32,3 @@ def quick_sort(a):
     quick_sorting(a, 0, len(a) - 1)
 
 
-# below we run a unittest to make sure if quick_sort indeed sorts a random list:
-
-random_list = []
-
-for _ in range(100):
-
-    draw = random.randint(0,1000)
-    random_list.append(draw)
-
-random_list_copy = random_list[:]
-
-quick_sort(random_list)
-
-random_list_copy.sort()
-
-class TestQuickSort(unittest.TestCase):
-
-    def test_1(self):
-
-        self.assertEqual(random_list, random_list_copy)
-
-
-if __name__ == '__main__':
-    unittest.main()

@@ -1,5 +1,4 @@
 from django import forms
-# from .models import Product
 
 LENGTH_VALUES = (
     ('10', '10'),
