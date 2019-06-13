@@ -6,8 +6,15 @@ def bubble_sort(a):
 
     length = len(a)
 
-    for i in range(length):
-        for j in range(1, length-i):
-            if a[j-1] > a[j]:
-                swap(a, j-1, j)
+    while True:
+        swapped = False
+        for i in range(1, length):
+            if a[i-1] > a[i]:
+                swap(a, i-1, i)
+                swapped = True
+        length -= 1
+        if swapped == False or length == 1:
+            break
+
+
 
