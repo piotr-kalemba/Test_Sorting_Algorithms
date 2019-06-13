@@ -1,4 +1,5 @@
-from .bubble_sort import swap
+def swap(a, i, j):
+    a[i], a[j] = a[j], a[i]
 
 def partition(a, start, end):
 

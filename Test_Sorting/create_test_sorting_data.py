@@ -8,7 +8,7 @@ import random
 def create_test_sorting_data(list_length, unique):
     '''the function returns a dictonary whose keys are sorting algorithms' names
     and whose corresponding values are timespans the computer needed to sort
-    the random list by the sorting algorithm
+    the random list by given sorting algorithm
     '''
     if unique:
         random_list = list(range(list_length))

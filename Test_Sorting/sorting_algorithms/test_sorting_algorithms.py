@@ -1,10 +1,10 @@
 import unittest
 import random
-from .bubble_sort import bubble_sort
-from .select_sort import select_sort
-from .merge_sort import merge_sort
-from .heap_sort import heap_sort
-from .quick_sort import quick_sort
+from bubble_sort import bubble_sort
+from select_sort import select_sort
+from merge_sort import merge_sort
+from heap_sort import heap_sort
+from quick_sort import quick_sort
 
 random_list = []
 
@@ -25,10 +25,8 @@ class TestLists(unittest.TestCase):
     def test_lists(self):
 
             self.assertNotEqual(sorted_list, list_bubble)
-            self.assertNotEqual(sorted_list, list_select)
-            self.assertNotEqual(sorted_list, list_merge)
-            self.assertNotEqual(sorted_list, list_heap)
-            self.assertNotEqual(sorted_list, list_quick)
+            self.assertIsNot(sorted_list, list_select)
+            self.assertIsNot(list_heap, list_merge)
 
 
 class TestSortingAlgorithms(unittest.TestCase):
