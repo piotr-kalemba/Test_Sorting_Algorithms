@@ -19,5 +19,12 @@ import Test_Sorting.views as views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', views.IndexView.as_view(), name="index"),
+    url(r'^algorithms/', views.AllAlgorithmsView.as_view(), name="algorithms"),
+    url(r'^algorithm/', views.AlgorithmView.as_view(), name="algorithm"),
+    url(r'^tests', views.TestsView.as_view(), name="tests"),
+    url(r'^login', views.LoginUser.as_view(), name="login"),
+    url(r'^create_user', views.CreateUser.as_view(), name="create-user"),
+    url(r'^all_test_view/(?P<pk>(\d)+)', views.AllTestInstance.as_view(), name="all-test-view"),
+    url(r'^single_test_view/(?P<pk>(\d)+)', views.SingleTestInstance.as_view(), name="single-test-view"),
+    url(r'', views.WelcomeView.as_view(), name="welcome-view"),
 ]

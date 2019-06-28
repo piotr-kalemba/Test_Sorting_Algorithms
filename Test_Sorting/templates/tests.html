@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Tests view{% endblock %}
+{% block content %}
+<div class="row">
+
+<div class="column">
+<h3>Testy porównujące wszystkie algorytmy:</h3>
+<ul>
+{% for test in all_algorithms_tests %}
+    <li><a href="{% url 'all-test-view' pk=test.pk %}">{{ test }}</a></li>
+    {% empty %}
+    <li>Nie wykonałeś jeszcze żadnego testu porównującego efektywność wszystkich algorytmów!</li>
+{% endfor %}
+</ul>
+</div>
+<div class="column">
+    <h3>Testy porównujące efektywność wybranego algorytmu:</h3>
+   <ul>
+{% for test in single_algorithm_tests %}
+       <li><a href="{% url 'single-test-view' pk=test.pk %}">{{ test }}</a></li>
+    {% empty %}
+    <li>Nie wykonałeś jeszcze żadnego testu badającego efektywność pojedyńczego algorytmu!</li>
+{% endfor %}
+</ul>
+</div>
+
+</div>
+{% endblock %}
+
+

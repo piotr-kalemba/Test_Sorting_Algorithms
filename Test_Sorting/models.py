@@ -1,11 +1,15 @@
 from django.db import models
-from .forms import LENGTH_VALUES
+from .forms import LENGTH_VALUES, ALGORITHMS
+from django.contrib.auth.models import User
+
 # Create your models here.
 
-class TestInstance(models.Model):
+class AllAlgorithmsTest(models.Model):
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     list_length = models.IntegerField(choices=LENGTH_VALUES)
     unique_keys = models.BooleanField(default=True)
+    test_date = models.DateTimeField(auto_now=True)
     bubble = models.FloatField(default=0)
     select = models.FloatField(default=0)
     merge = models.FloatField(default=0)
@@ -20,44 +24,37 @@ class TestInstance(models.Model):
         self.quick = data['quick']
 
     def __str__(self):
-        return "list.length: {}; keys.unique: {}".format(str(self.list_length), str(self.unique_keys))
+        if self.unique_keys == True:
+            return "Wszystkie algorytmy: rozmiar tablicy (elementy unikalne): {}; data testu: {}."\
+                .format(str(self.list_length),str(self.test_date.replace(microsecond=0))[:-6])
+        else:
+            return "Wszystkie algorytmy: rozmiar tablicy: {}; data testu: {}." \
+                .format(str(self.list_length), str(self.test_date.replace(microsecond=0))[:-6])
 
 
-class AverageTimes(models.Model):
+class AlgorithmTest(models.Model):
 
-    test = models.ForeignKey(TestInstance, on_delete=models.CASCADE)
-    test_number = models.IntegerField(default=0)
-    avg_bubble = models.FloatField(default=0)
-    avg_select = models.FloatField(default=0)
-    avg_merge = models.FloatField(default=0)
-    avg_heap = models.FloatField(default=0)
-    avg_quick = models.FloatField(default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    algorithm = models.CharField(max_length=20, choices=ALGORITHMS)
+    unique_keys = models.BooleanField(default=True)
+    test_date = models.DateTimeField(auto_now=True)
+    time_10 = models.FloatField(default=0)
+    time_100 = models.FloatField(default=0)
+    time_1000 = models.FloatField(default=0)
+    time_10000 = models.FloatField(default=0)
 
-    def update_data(self):
-        '''the method updates the current sorting time values by computing new average sorting time values
-        for individual algorithms from the previous average times and new sorting times taken from 'test' object:
-        we use the formula: if avg is the average time from n samples and new_time is a new sample time then
-        new_avg = (avg * n + new_time)/(n + 1)
-        '''
-        self.avg_bubble = (self.avg_bubble * self.test_number + self.test.bubble)/(self.test_number + 1)
-        self.avg_select = (self.avg_select * self.test_number + self.test.select)/(self.test_number + 1)
-        self.avg_merge = (self.avg_merge * self.test_number + self.test.merge)/(self.test_number + 1)
-        self.avg_heap = (self.avg_heap * self.test_number + self.test.heap)/(self.test_number + 1)
-        self.avg_quick = (self.avg_quick * self.test_number + self.test.quick)/(self.test_number + 1)
-        self.test_number += 1
 
-    def get_data(self):
-
-        data = {}
-        data['bubble'] = self.avg_bubble
-        data['select'] = self.avg_select
-        data['merge'] = self.avg_merge
-        data['heap'] = self.avg_heap
-        data['quick'] = self.avg_quick
-
-        return data
+    def set_data(self, data):
+        self.time_10 = data['10']
+        self.time_100 = data['100']
+        self.time_1000 = data['1000']
+        self.time_10000 = data['10000']
 
     def __str__(self):
-        return "Avg_test_type: {}".format(str(self.test))
-
+        if self.unique_keys == True:
+            return "Algorytm: {}; elementy unikalne; data testu: {}.".\
+                format(self.algorithm, str(self.test_date.replace(microsecond=0))[:-6])
+        else:
+            return  "Algorytm: {}; data testu: {}.".\
+                format(self.algorithm, str(self.test_date.replace(microsecond=0))[:-6])
 

@@ -8,9 +8,34 @@
     <title>{% block title %} nadpisz tytuł strony {%  endblock %}</title>
 </head>
 <body class="content">
+<div class="navbar">
+<ul>
+    <li><a href="{% url 'login' %}">Zaloguj się</a></li>
+    <li><a href="{% url 'create-user' %}">Utwórz konto</a></li>
+    {% if user.is_authenticated %}
+    <li><a href="{% url 'tests' %}">Moje testy</a></li>
+    <li><a href="{% url 'algorithms' %}">Testuj wszystkie algorytmy</a></li>
+    <li><a href="{% url 'algorithm' %}">Testuj wybrany algorytm </a></li>
+    {% endif %}
+</ul>
+</div>
      <h1>Aplikacja testująca algorytmy sortowania</h1>
         {% block content %}
-          nadpisz zawartość strony
+<h3> Witam w moim programie! Ma on na celu porównanie i zilustrowanie efektywności klasycznych algorytmów sortujących.
+Rozważane algorytmy, to: sortowanie bąbelkowe (bubble sort), sortowanie przez wybieranie (select sort),
+sortowanie przez scalanie (merge sort), sortowanie przez kopcowanie (heap sort) i sortowanie szybkie
+(quick sort). Algorytmy są analizowane na dwa sposoby. Pierwszy polega na analizie porównawczej czasu sortowania,
+    jaki zajęło komputerowi sortowanie poszczególnymi algorytmami tej samej losowej tablicy. Jako użytkownik
+    możesz zadać długość tablicy spośród wartości 10, 100, 1000 i 10000 oraz określić, czy elementy tablicy mają
+    być unikalne, czy mogą się powtarzać. Jeśli wykonasz test, program wygeneruje wykres słupkowy dla poszczególnych
+    algorytmów. Możesz zobaczyć również wyniki średnie z wykonanych przez Ciebie testów.
+    Drugi sposób analizy algorytmów polega na przedstawieni czasów jakie zajeło komputerowi posortowanie
+    wybranym algorytmem czterech losowych tablic o długościach odpowiednio 10, 100, 1000 i 10000. Wykonanie
+    testu generuje wykres liniowy, na którym są pokazane czasy z bieżącego testu oraz czasy średnie z wykonanych
+    przez Ciebie testów spełniających zadane kryteria. Wszystkie wykonane testy są zapisywane w bazie danych i można
+    zobaczyć poszczególne wyniki (czasy w milisekundach) dla danego testu w tabeli.
+
+</h3>
         {% endblock %}
 </body>
 </html>

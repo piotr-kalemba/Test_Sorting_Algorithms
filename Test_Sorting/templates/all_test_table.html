@@ -1,0 +1,49 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Test table {% endblock %}
+{% block content %}
+
+<table border="1">
+    <tr>
+    <th>
+        Algorytm sortowania:
+    </th>
+        <th>
+            bubble
+        </th>
+         <th>
+            select
+        </th>
+         <th>
+            merge
+        </th>
+         <th>
+            heap
+        </th>
+        <th>
+            quick
+        </th>
+    </tr>
+    <tr>
+        <th>Czas sortowania (w milisekundach):</th>
+        <th>
+           &nbsp;&nbsp;&nbsp; {{test.bubble|floatformat:5}}&nbsp;&nbsp;&nbsp;
+        </th>
+         <th>
+           &nbsp;&nbsp;&nbsp; {{ test.select|floatformat:5 }}&nbsp;&nbsp;&nbsp;
+        </th>
+         <th>
+           &nbsp;&nbsp;&nbsp; {{ test.merge|floatformat:5 }}&nbsp;&nbsp;&nbsp;
+        </th>
+         <th>
+           &nbsp;&nbsp;&nbsp; {{ test.heap|floatformat:5}}&nbsp;&nbsp;&nbsp;
+        </th>
+        <th>
+          &nbsp;&nbsp;&nbsp;  {{ test.quick|floatformat:5 }}&nbsp;&nbsp;&nbsp;
+        </th>
+    </tr>
+
+</table>
+
+{% endblock %}

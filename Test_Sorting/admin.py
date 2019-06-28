@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import TestInstance, AverageTimes
+from .models import AlgorithmTest, AllAlgorithmsTest
 
-admin.site.register(TestInstance)
-admin.site.register(AverageTimes)
+admin.site.register(AlgorithmTest)
+admin.site.register(AllAlgorithmsTest)
 
 
 

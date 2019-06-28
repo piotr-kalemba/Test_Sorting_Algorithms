@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Test table {% endblock %}
+{% block content %}
+
+<table border="1">
+    <tr>
+    <th>
+        Rozmiar tablicy:
+    </th>
+        <th>
+            10
+        </th>
+         <th>
+           100
+        </th>
+         <th>
+            1000
+        </th>
+         <th>
+             10000
+        </th>
+    </tr>
+    <tr>
+        <th>Czas sortowania (w milisekundach):</th>
+        <th>
+            &nbsp;{{test.time_10|floatformat:5}}
+        </th>
+         <th>
+           &nbsp;&nbsp;&nbsp; {{ test.time_100|floatformat:5 }}&nbsp;&nbsp;&nbsp;
+        </th>
+         <th>
+           &nbsp;&nbsp;&nbsp; {{ test.time_1000|floatformat:5 }}&nbsp;&nbsp;&nbsp;
+        </th>
+         <th>
+           &nbsp;&nbsp;&nbsp; {{ test.time_10000|floatformat:5}}&nbsp;&nbsp;&nbsp;
+        </th>
+    </tr>
+
+</table>
+
+{% endblock %}

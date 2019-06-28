@@ -1,0 +1,17 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Create user site {% endblock %}
+{% block content %}
+Błędna nazwa użytkownika lub hasło<br>
+<div class="mydiv">
+<form method="POST" class="form">
+{% csrf_token %}
+  <ul>
+      {{ form.as_ul }}
+  </ul>
+       <button type="submit" class="button">Zaloguj się</button>
+</form>
+</div>
+
+{% endblock %}
