@@ -18,3 +18,7 @@ def bubble_sort(a):
 
 
 
+def sort_method(a):
+    bubble_sort(a)
+    return a
+

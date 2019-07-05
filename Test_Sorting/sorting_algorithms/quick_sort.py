@@ -31,3 +31,6 @@ def quick_sort(a):
     quick_sorting(a, 0, len(a) - 1)
 
 
+def sort_method(a):
+    quick_sort(a)
+    return a

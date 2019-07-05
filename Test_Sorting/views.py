@@ -1,26 +1,25 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.views import View
 from django.db.models import Avg
-from .create_test_sorting_data import create_test_sorting_data, create_algorithm_data
-from .render_test_chart import TestAlgorithmChart, TestAllAlgorithmsChart
-from .forms import AllAlgorithmsForm, SingleAlgorithmForm, UserLoginForm, UserCreateForm
+from .create_test_sorting_data import create_all_alg_data, create_single_alg_data
+from .render_test_chart import TestSingleChart, TestAllChart
+from .forms import AllAlgForm, SingleAlgForm, UserLoginForm, UserCreateForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from .models import AllAlgorithmsTest, AlgorithmTest
+from .models import AllAlgTest, SingleAlgTest
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class AlgorithmView(LoginRequiredMixin, View):
+class SingleAlgTestView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        form = SingleAlgorithmForm()
+        form = SingleAlgForm()
         return render(request, 'algorithm_view.html', {'form': form})
 
     def post(self, request):
 
-        form = SingleAlgorithmForm(request.POST)
+        form = SingleAlgForm(request.POST)
         user = request.user
 
         if form.is_valid():
@@ -28,12 +27,12 @@ class AlgorithmView(LoginRequiredMixin, View):
             algorithm = form.cleaned_data['algorithm']
             unique_keys = bool(int(form.cleaned_data['unique_keys']))
 
-            times_data = create_algorithm_data(algorithm, unique_keys)
-            test = AlgorithmTest(algorithm=algorithm, unique_keys=unique_keys, user=user)
+            times_data = create_single_alg_data(algorithm, unique_keys)
+            test = SingleAlgTest(algorithm=algorithm, unique_keys=unique_keys, user=user)
             test.set_data(times_data)
             test.save()
 
-            test_objects = AlgorithmTest.objects.filter(algorithm=algorithm).filter(user=user).\
+            test_objects = SingleAlgTest.objects.filter(algorithm=algorithm).filter(user=user).\
                 filter(unique_keys=unique_keys)
 
             avg_times_data = {}
@@ -42,20 +41,20 @@ class AlgorithmView(LoginRequiredMixin, View):
             avg_times_data['1000'] = test_objects.aggregate(Avg('time_1000'))['time_1000__avg']
             avg_times_data['10000'] = test_objects.aggregate(Avg('time_10000'))['time_10000__avg']
 
-            chart = TestAlgorithmChart(algorithm)
+            chart = TestSingleChart(algorithm)
             plot = chart.generate(times_data, avg_times_data)
             return render(request, 'algorithm_plot.html', {'plot': plot})
 
-class AllAlgorithmsView(LoginRequiredMixin, View):
+class AllAlgTestView(LoginRequiredMixin, View):
 
     def get(self, request):
 
-        form = AllAlgorithmsForm()
+        form = AllAlgForm()
         return render(request, 'test_view.html', {'form': form})
 
     def post(self, request):
 
-        form = AllAlgorithmsForm(request.POST)
+        form = AllAlgForm(request.POST)
         user = request.user
 
         if form.is_valid():
@@ -65,20 +64,20 @@ class AllAlgorithmsView(LoginRequiredMixin, View):
 
             if form.cleaned_data['action'] == 'test':
 
-                times_data = create_test_sorting_data(list_length, unique_keys)
-                test = AllAlgorithmsTest(list_length=list_length, unique_keys=unique_keys, user=user)
+                times_data = create_all_alg_data(list_length, unique_keys)
+                test = AllAlgTest(list_length=list_length, unique_keys=unique_keys, user=user)
                 test.set_data(times_data)
                 test.save()
                 title = "Wynik testu pomiaru czasów sortowania"
                 y_title = "Czas sortowania (w milisekundach)"
-                chart = TestAllAlgorithmsChart(title=title, y_title=y_title)
+                chart = TestAllChart(title=title, y_title=y_title)
                 hist = chart.generate(times_data)
 
                 return render(request, 'test_hist.html', {'hist': hist})
 
             else:
 
-                test_objects = AllAlgorithmsTest.objects.filter(list_length=list_length).\
+                test_objects = AllAlgTest.objects.filter(list_length=list_length).\
                     filter(unique_keys=unique_keys).filter(user=user)
 
                 if test_objects:
@@ -94,7 +93,7 @@ class AllAlgorithmsView(LoginRequiredMixin, View):
                     title = "Średnie wyniki z {} testów".format(
                         test_number) if test_number != 1 else "Średnie wyniki z 1 testu"
                     y_title = "Średni czas sortowania (w milisekundach) "
-                    chart = TestAllAlgorithmsChart(title=title, y_title=y_title)
+                    chart = TestAllChart(title=title, y_title=y_title)
                     hist = chart.generate(avg_times_data)
 
                     return render(request, 'avg_hist.html', {'hist': hist})
@@ -163,8 +162,8 @@ class TestsView(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
         if user is not None:
-            all_algorithms_tests = AllAlgorithmsTest.objects.filter(user=user)
-            single_algorithm_tests = AlgorithmTest.objects.filter(user=user)
+            all_algorithms_tests = AllAlgTest.objects.filter(user=user)
+            single_algorithm_tests = SingleAlgTest.objects.filter(user=user)
         else:
             all_algorithms_tests = []
             single_algorithm_tests = []
@@ -172,16 +171,16 @@ class TestsView(LoginRequiredMixin, View):
         return render(request, 'tests.html', {'all_algorithms_tests' : all_algorithms_tests, 'single_algorithm_tests':\
                                               single_algorithm_tests})
 
-class AllTestInstance(LoginRequiredMixin, View):
+class AllAlgTestTable(LoginRequiredMixin, View):
 
     def get(self, request, pk):
-        test = AllAlgorithmsTest.objects.get(pk=pk)
+        test = AllAlgTest.objects.get(pk=pk)
         return render(request, 'all_test_table.html', {'test' : test})
 
-class SingleTestInstance(LoginRequiredMixin, View):
+class SingleAlgTestTable(LoginRequiredMixin, View):
 
     def get(self, request, pk):
-        test = AlgorithmTest.objects.get(pk=pk)
+        test = SingleAlgTest.objects.get(pk=pk)
         return render(request, 'single_test_table.html', {'test': test})
 
 class WelcomeView(View):

@@ -7,3 +7,7 @@ def select_sort(a):
         j = i + a[i:].index(min(a[i:]))
         swap(a, i, j)
 
+
+def sort_method(a):
+    select_sort(a)
+    return a

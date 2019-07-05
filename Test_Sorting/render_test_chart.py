@@ -1,7 +1,7 @@
 import pygal
 
 
-class TestAllAlgorithmsChart():
+class TestAllChart():
 
     def __init__(self, title, y_title, x_title="Algorytm sortowania"):
         self.chart = pygal.Bar()
@@ -16,12 +16,12 @@ class TestAllAlgorithmsChart():
         return self.chart.render(is_unicode=True)
 
 
-class TestAlgorithmChart():
+class TestSingleChart():
 
     def __init__(self, algorithm):
         self.chart = pygal.Line()
         self.chart.title = "Wynik testu pomiaru czasów sortowania za pomocą {} sort.".format(algorithm)
-        self.chart.x_title = "Liczba kluczy w liście"
+        self.chart.x_title = "Liczba elementów w liście"
         self.chart.y_title = "Czas sortowania (w milisekundach)"
 
     def generate(self, chart_data_1, chart_data_2):

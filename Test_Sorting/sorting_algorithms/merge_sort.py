@@ -33,3 +33,6 @@ def merge_sort(a):
     mergesort(a, temp, 0, len(a))
 
 
+def sort_method(a):
+    merge_sort(a)
+    return a

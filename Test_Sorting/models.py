@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class AllAlgorithmsTest(models.Model):
+class AllAlgTest(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     list_length = models.IntegerField(choices=LENGTH_VALUES)
@@ -32,7 +32,7 @@ class AllAlgorithmsTest(models.Model):
                 .format(str(self.list_length), str(self.test_date.replace(microsecond=0))[:-6])
 
 
-class AlgorithmTest(models.Model):
+class SingleAlgTest(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     algorithm = models.CharField(max_length=20, choices=ALGORITHMS)

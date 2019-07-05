@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import AlgorithmTest, AllAlgorithmsTest
+from .models import SingleAlgTest, AllAlgTest
 
-admin.site.register(AlgorithmTest)
-admin.site.register(AllAlgorithmsTest)
+admin.site.register(SingleAlgTest)
+admin.site.register(AllAlgTest)
 
 
 

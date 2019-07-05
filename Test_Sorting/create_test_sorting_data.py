@@ -4,10 +4,11 @@ from .sorting_algorithms.sorting_times import (bubble_sort_time,
                            quick_sort_time,
                            heap_sort_time)
 import random
-algorithms_dict = {'bubble' : bubble_sort_time, 'select': select_sort_time, 'merge': merge_sort_time, 'quick': quick_sort_time, 'heap': heap_sort_time}
+algorithms_dict = {'bubble' : bubble_sort_time, 'select': select_sort_time, 'merge': merge_sort_time, \
+                  'quick': quick_sort_time, 'heap': heap_sort_time}
 
 
-def create_test_sorting_data(list_length, unique):
+def create_all_alg_data(list_length, unique):
     '''the function returns a dictonary whose keys are sorting algorithms' names
     and whose corresponding values are timespans the computer needed to sort
     the random list by given sorting algorithm
@@ -38,7 +39,7 @@ def create_test_sorting_data(list_length, unique):
 
     return data
 
-def create_algorithm_data(algorithm, unique):
+def create_single_alg_data(algorithm, unique):
 
     if unique:
 

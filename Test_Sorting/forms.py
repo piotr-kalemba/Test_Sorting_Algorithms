@@ -29,13 +29,13 @@ ALGORITHMS = (
     ('quick', 'quick sort'),
 
 )
-class AllAlgorithmsForm(forms.Form):
+class AllAlgForm(forms.Form):
 
     list_length = forms.ChoiceField(label='Wybierz długość tablicy', widget=forms.RadioSelect, choices=LENGTH_VALUES)
     unique_keys = forms.ChoiceField(label='Wybierz czy elementy mają być unikalne', widget=forms.RadioSelect, choices=KEYS)
     action = forms.ChoiceField(label='Wybierz rodzaj akcji', widget=forms.RadioSelect, choices=ACTION)
 
-class SingleAlgorithmForm(forms.Form):
+class SingleAlgForm(forms.Form):
 
     algorithm = forms.ChoiceField(label='Wybierz algorytm sortowania', widget=forms.RadioSelect, choices=ALGORITHMS)
     unique_keys = forms.ChoiceField(label='Wybierz czy elementy mają być unikalne', widget=forms.RadioSelect,

@@ -56,3 +56,7 @@ def heap_sort(a):
         end -= 1
 
 
+
+def sort_method(a):
+    heap_sort(a)
+    return a
