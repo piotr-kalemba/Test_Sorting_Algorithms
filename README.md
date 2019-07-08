@@ -46,3 +46,7 @@ the revelant data depending on which test the user has chosen.
 The file Test_Sorting/render_test_chart.py is the only file in application that uses Pygal library and
 renders charts visualizing data sets.
 
+The file 'run_tests' makes it possible to verify if the algorithms from the directory 'sorting_algorithms'
+are indeed sorting_algorithms. The unit tests used there work dynamically, i.e. if you add another file to
+the directory 'sorting_algorithms' whose name ends with 'sort.py' and contains function 'sort_method', then 
+that function will be automatically included in the test suite and tested for being a sorting function.
